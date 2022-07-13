@@ -3,13 +3,12 @@ package com.springboot.springbootrestservice.controller;
 import com.springboot.springbootrestservice.model.Tovar;
 import com.springboot.springbootrestservice.service.TovarService;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-
+@RestController
 public class TovarController {
     private final TovarService tovarService;
 
