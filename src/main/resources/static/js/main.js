@@ -3,14 +3,15 @@ const tovarListTemplate = '<div v-for="tovar in tovars" class="col tovar-list-it
     '                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">\n' +
     '                    <h2 class="m-auto pb-5 fw-bold">{{tovar.name}}</h2>\n' +
     '                    <ul class="d-flex list-unstyled mt-auto">\n' +
-    '                        <li class="me-auto">\n' +
+    '                        <li class="d-flex me-auto">\n' +
+    '                            <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>\n' +
     '                            <small>{{tovar.price}} руб.</small>\n' +
     '                        </li>\n' +
-    '                        <li class="d-flex align-items-center me-3">\n' +
+    '                        <li class="d-flex align-items-center me-auto">\n' +
     '                            <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>\n' +
     '                            <small class="fw-semibold">{{tovar.category}}</small>\n' +
     '                        </li>\n' +
-    '                        <li class="d-flex align-items-center">\n' +
+    '                        <li class="d-flex align-items-center me-auto">\n' +
     '                            <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>\n' +
     '                            <small>{{tovar.ostatok}} шт.</small>\n' +
     '                        </li>\n' +
@@ -34,7 +35,7 @@ const TovarComponent = {
 const TovarListComponent = {
     components: {tovar: TovarComponent},
     template: tovarListTemplate,
-    created: function (){
+    created: function () {
         fetch("http://localhost:8080/tovars")
             .then(response => response.json())
             .then(data => data.forEach(tovar => this.tovars.push(tovar)))
