@@ -14,4 +14,8 @@ public interface TovarService {
     boolean update(Tovar tovar, int id);
 
     boolean delete(int id);
+
+    String about(String text);
+
+    void save_tovars();
 }

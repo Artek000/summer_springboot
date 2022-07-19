@@ -20,6 +20,7 @@ public class TovarController {
     @PostMapping(value = "/tovars")
     public ResponseEntity<?> create(@RequestBody Tovar tovar) {
         tovarService.create(tovar);
+        tovarService.save_tovars();
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -29,6 +30,16 @@ public class TovarController {
 
         return tovars != null &&  !tovars.isEmpty()
                 ? new ResponseEntity<>(tovars, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping(value = "/about")
+    public ResponseEntity<?> about(String text) {
+        text = "About us";
+        final String about = tovarService.about(text);
+
+        return about != null && !about.isEmpty()
+                ? new ResponseEntity<>(about, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
@@ -44,7 +55,7 @@ public class TovarController {
     @PutMapping(value = "/tovars/{id}")
     public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody Tovar tovar) {
         final boolean updated = tovarService.update(tovar, id);
-
+        tovarService.save_tovars();
         return updated
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
@@ -53,7 +64,7 @@ public class TovarController {
     @DeleteMapping(value = "/tovars/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") int id) {
         final boolean deleted = tovarService.delete(id);
-
+        tovarService.save_tovars();
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
