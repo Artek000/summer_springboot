@@ -8,12 +8,10 @@ import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -31,8 +29,21 @@ public class TovarServiceImpl implements TovarService {
 
     @Override
     public List<Tovar> readAll() {
-        return new ArrayList<>(TOVAR_REPOSITORY_MAP.values());
-    }
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        File file = new File("C:\\Users\\Артем\\Desktop\\summer practise\\Project\\src\\main\\resources\\static\\yml_data\\data.yml");
+
+        ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
+
+        List<Tovar> allTov = new ArrayList<>();
+        try {
+            allTov = Arrays.asList(objectMapper.readValue(file, Tovar[].class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return allTov; // новая
+
+         // старая   return new ArrayList<>(TOVAR_REPOSITORY_MAP.values());
+    }  // yml
 
     @Override
     public Tovar read(int id) {
@@ -55,8 +66,8 @@ public class TovarServiceImpl implements TovarService {
     }
 
     @Override
-    public String about(String text){
-        return text;
+    public int about(){
+        return TOVAR_REPOSITORY_MAP.size();
     }
 
     @Override
@@ -76,7 +87,7 @@ public class TovarServiceImpl implements TovarService {
 //            }
             //yaml.dump(readAll().get(1), writer);
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER));
-            mapper.writeValue(new File("C:\\Users\\Артем\\Desktop\\summer practise\\Project\\src\\main\\resources\\static\\yml_data\\data.yml"), readAll());
+            mapper.writeValue(new File("C:\\Users\\Артем\\Desktop\\summer practise\\Project\\src\\main\\resources\\static\\yml_data\\data.yml"), new ArrayList<>(TOVAR_REPOSITORY_MAP.values()));
         }
         catch (Exception e){
             PrintStream ps;

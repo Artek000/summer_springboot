@@ -34,11 +34,10 @@ public class TovarController {
     }
 
     @GetMapping(value = "/about")
-    public ResponseEntity<?> about(String text) {
-        text = "About us";
-        final String about = tovarService.about(text);
+    public ResponseEntity<?> about() {
+        final int about = tovarService.about();
 
-        return about != null && !about.isEmpty()
+        return about >=0
                 ? new ResponseEntity<>(about, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
