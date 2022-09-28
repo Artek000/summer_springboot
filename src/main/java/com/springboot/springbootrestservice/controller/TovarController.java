@@ -2,6 +2,7 @@ package com.springboot.springbootrestservice.controller;
 
 import com.springboot.springbootrestservice.model.Tovar;
 import com.springboot.springbootrestservice.service.TovarService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -9,13 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
+@RequiredArgsConstructor
 public class TovarController {
-    private final TovarService tovarService;
 
-    @Autowired
-    public TovarController(TovarService tovarService) {
-        this.tovarService = tovarService;
-    }
+    private final TovarService tovarService;
 
     @PostMapping(value = "/tovars")
     public ResponseEntity<?> create(@RequestBody Tovar tovar) {

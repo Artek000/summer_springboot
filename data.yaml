@@ -1,0 +1,14 @@
+- name: "idk"
+  category: "grocery"
+  id: 1
+  price: 0
+  ostatok: 0
+  dostavka_price: 0
+  sale: 0
+- name: "idk1"
+  category: "grocery"
+  id: 2
+  price: 0
+  ostatok: 0
+  dostavka_price: 0
+  sale: 0
